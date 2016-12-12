@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-node('docker') {
+node() {
     stage('Build') {
         docker.image('alpine').inside {
             echo 'im building'
@@ -10,7 +10,7 @@ node('docker') {
     }
 }
 
-node('docker') {
+node() {
     stage('Test') {
         docker.image('redis').withRun { container ->
             docker.image('maven').inside("--link ${container.id}:redis") {
